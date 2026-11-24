@@ -1,20 +1,34 @@
 
+# Electricity Billing System
 
-import numpy as np
+def calculate_bill(units):
+    bill = 0
 
-sensor_data = np.array([24.5, 25.1, 26.3, 27.0, 28.2,
-                        29.1, 27.8, 26.5, 25.7, 30.2])
+    if units <= 100:
+        bill = units * 1.50
 
-print("Sensor Data:", sensor_data)
+    elif units <= 200:
+        bill = (100 * 1.50) + (units - 100) * 2.50
 
-print("Mean :", round(np.mean(sensor_data), 2))
-print("Median :", round(np.median(sensor_data), 2))
-print("Minimum :", np.min(sensor_data))
-print("Maximum :", np.max(sensor_data))
-print("Std. Dev. :", round(np.std(sensor_data), 2))
+    elif units <= 500:
+        bill = (100 * 1.50) + (100 * 2.50) + (units - 200) * 4.00
 
-threshold = 28.0
+    else:
+        bill = (100 * 1.50) + (100 * 2.50) + (300 * 4.00) + (units - 500) * 6.00
 
-high_values = sensor_data[sensor_data > threshold]
+    return bill
 
-print("Values above", threshold, ":", high_values)
+
+n = int(input("Enter number of customers: "))
+
+for i in range(1, n + 1):
+    print("\nCustomer", i)
+
+    name = input("Enter customer name: ")
+    units = float(input("Enter units consumed: "))
+
+    bill = calculate_bill(units)
+
+    print("Customer Name :", name)
+    print("Units :", units)
+    print("Bill Amount : Rs.", round(bill, 2))
